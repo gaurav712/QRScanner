@@ -22,5 +22,6 @@
     <string name="pref_header_general">General</string>
     <string name="pref_title_token">Smartsheet Token</string>
     <string name="pref_title_sheet_id">Smartsheet Sheet ID</string>
+    <string name="scan">Scan</string>
 
 </resources>

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ParsedResult;
@@ -24,8 +25,6 @@ import com.google.zxing.client.result.ResultParser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.smartsheet.api.SmartsheetException;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // Static vars
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         final Button scanButton = (Button) findViewById(R.id.btnScan);
         scanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                    IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
                 integrator.setPrompt(getResources().getString(R.string.msg_scan_prompt));
                 integrator.setOrientationLocked(false);
                 integrator.setBeepEnabled(false);
@@ -90,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.menu_settings:
+            case 1000013:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.menu_clear_cache:
+            case 1000009:
                 boolean success = SmartsheetAPI.clearCache(this);
                 Toast.makeText(MainActivity.this,
                         getResources().getString(success ? R.string.msg_cache_clear_success : R.string.msg_cache_clear_failure),
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             try {
